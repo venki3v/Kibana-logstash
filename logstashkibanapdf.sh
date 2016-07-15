@@ -1,14 +1,20 @@
-cd /root/logstash-pdfreports
 date_diff=7
 date_diff2=1
+
+# Find the month of the start date
 repstart_month=$(date "--date=${dataset_date} -${date_diff} day" +%b)
+
+# Find the month of the end date
 repend_month=$(date "--date=${dataset_date} -${date_diff2} day" +%b)
-#repend_month=Jul
-#echo $repend_month
+
+# Get report start date and report end date in format 2016-07-15
 repstart_date=$(date "--date=${dataset_date} -${date_diff} day" +%Y-%m-%d)
 repend_date=$(date "--date=${dataset_date} -${date_diff2} day" +%Y-%m-%d)
+#print start date and end date
 echo $repstart_date
 echo $repend_date
+
+# if start month and end month are same or clause has only one month otherwise it has both the months
 if [ $repstart_month == $repend_month ] ; then
  echo "same month"
  syslogmonth=syslog_timestamp:$repstart_month*
@@ -18,6 +24,8 @@ else
   syslogmonth=syslog_timestamp:\($repstart_month*$orClause$repend_month*\)
   echo $syslogmonth
 fi
+
+# Convert the report start date to logstash index format logstash-2015.07.16
 newstartindexdate=`echo $repstart_date | tr "-" .`
 newendindexdate=`echo $repend_date | tr "-" .`
 newstartindexdate=${newstartindexdate:0:9}
@@ -31,6 +39,8 @@ else
 fi
 echo $index_newname
 #echo $index_name
+
+// Create a temp file with curl query to local elastic search
 cat > dcdcloudtemppdf.sh <<EOF
 curl -XGET 'http://localhost:9200/${index_newname}/_search?pretty' -d '{
   "query": {
