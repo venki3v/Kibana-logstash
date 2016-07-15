@@ -130,6 +130,5 @@ chmod 777 /tmp/dcdcloudreportnew.pdf
 rm -f dcdcloudmessageout dcdcloudsyslogdeviceout dcdcloudcompsys.txt  dcdcloudreportnew$repend_date.pdf dcdcloudjsonoutput dcdcloudcompsys.ps
 EOF
 chmod 755 dcdcloudtemppdf.sh
-cd /root/logstash-pdfreports
 ./dcdcloudtemppdf.sh
 
