@@ -111,9 +111,9 @@ ps2pdf dcdcloudcompsys.ps dcdcloudreportnew$repend_date.pdf
 cp dcdcloudreportnew$repend_date.pdf /tmp/dcdcloudreportnew.pdf
 echo \$filenotempty
 if [ \$filenotempty ] ; then
-   echo "DCD Authentication failure report for week ending  ${repend_date}" | mail -r logstash@logstash.ecap.tdaf.com -a dcdcloudreportnew$repend_date.pdf  -s "DCD cloud  Authentication Failure report for week ending  ${repend_date}" -S smtp=smtp://mailhub.intra.com:25 vs@xx123.com
+   echo "DCD Authentication failure report for week ending  ${repend_date}" | mail -r logstash@logstash.ecap.com -a dcdcloudreportnew$repend_date.pdf  -s "DCD cloud  Authentication Failure report for week ending  ${repend_date}" -S smtp=smtp://mailhub.intra.com:25 vs@xx123.com
 else
-   echo "There are no DCD Authentication failure for week ending  ${repend_date}" | mail -r logstash@logstash.ecap.tdaf.com -s "There are no DCD cloud  Authentication failure  for week ending  ${repend_date}" -S smtp=smtp://mailhub.intra.tdaf.com:25 vs@xx123.com
+   echo "There are no DCD Authentication failure for week ending  ${repend_date}" | mail -r logstash@logstash.ecap.com -s "There are no DCD cloud  Authentication failure  for week ending  ${repend_date}" -S smtp=smtp://mailhub.intra.com:25 vs@xx123.com
 fi
 
 chmod 777 /tmp/dcdcloudreportnew.pdf
